@@ -22,7 +22,10 @@ class ImmutableQueue:
 
     def _tail_to_head(self):
         # define behaviour when head is empty
-        pass
+        while not self._tail_stack.empty():
+            self._head_stack = self._head_stack.push(self._tail_stack.head_value())
+            self._tail_stack = self._tail_stack.pop()
+        return ImmutableQueue(self._tail_stack, self._head_stack)
 
     def enqueue(self, value):
         self._tail_stack = self._tail_stack.push(value)
