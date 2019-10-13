@@ -17,13 +17,19 @@ class Stack:
     def empty(self):
         return len(self._storage) == 0
 
+    def head_value(self):
+        if len(self._storage):
+            return self._storage[-1]
+        else:
+            return None
+
 
 class ImmutableStack:
     def __init__(self, head=None):
         self.head = head
 
     def push(self, value):
-        return ImmutableStack(Node(value, self.head))
+        return self.__class__(Node(value, self.head))
 
     def head_value(self):
         if self.head:
@@ -33,7 +39,7 @@ class ImmutableStack:
 
     def pop(self):
         if self.head:
-            return ImmutableStack(self.head.prev)
+            return self.__class__(self.head.prev)
         else:
             return self
 

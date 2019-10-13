@@ -1,4 +1,4 @@
-from immutablity101.stack import ImmutableStack
+from immutablity101.stacks import ImmutableStack
 
 
 class Queue:
@@ -25,13 +25,13 @@ class ImmutableQueue:
         while not self._tail_stack.empty():
             self._head_stack = self._head_stack.push(self._tail_stack.head_value())
             self._tail_stack = self._tail_stack.pop()
-        return ImmutableQueue(self._tail_stack, self._head_stack)
+        return self.__class__(self._tail_stack, self._head_stack)
 
     def enqueue(self, value):
         self._tail_stack = self._tail_stack.push(value)
         if self._head_stack.empty():  # define behaviour when head is empty
             return self._tail_to_head()
-        return ImmutableQueue(self._tail_stack, self._head_stack)
+        return self.__class__(self._tail_stack, self._head_stack)
 
     def head_value(self):
         if self._head_stack.empty():
@@ -44,7 +44,7 @@ class ImmutableQueue:
         if self._head_stack.empty():  # define behaviour when head is empty
             return self._tail_to_head()
         else:
-            return ImmutableQueue(self._tail_stack, self._head_stack)
+            return self.__class__(self._tail_stack, self._head_stack)
 
     def empty(self):
         return self._tail_stack.empty() and self._head_stack.empty()
